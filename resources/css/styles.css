@@ -70,10 +70,18 @@ body {
 	cursor: pointer;
 }
 .dessert-type {
+	font-weight: 400;
+	color: var(--Rose-300);
+	margin: 0 0 5px 0;
 }
 .dessert-specific {
+	font-weight: 500;
+	margin: 0 0 5px 0;
 }
 .dessert-price {
+	font-weight: 500;
+	color: var(--Red);
+	/* margin: 0 0 10px 0; */
 }
 .right-column {
 	height: fit-content;
