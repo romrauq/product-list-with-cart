@@ -22,7 +22,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	background-color: var(--Rose-50);
 }
 .main-container {
@@ -116,6 +116,7 @@ body {
 	font-size: 14px;
 }
 .attribution {
+	margin: auto 0 0 0;
 	font-size: 11px;
 	text-align: center;
 }
