@@ -42,7 +42,7 @@ body {
 .items-container {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 15px;
+	gap: 30px 15px;
 }
 .dessert-item {
 	font-size: 14px;
