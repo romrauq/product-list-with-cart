@@ -104,3 +104,54 @@ body {
 .attribution a {
 	color: hsl(228, 45%, 44%);
 }
+@media (max-width: 475px) {
+	.main-container {
+		font-size: 16px;
+		width: 100%;
+		flex-direction: column;
+		margin: 0 0 auto 0;
+	}
+	.left-column {
+		width: 90%;
+		margin: 0 auto;
+	}
+	.heading-container {
+		padding: 10px 0 15px 0;
+	}
+	.items-container {
+		grid-template-columns: repeat(1, 1fr);
+		gap: 20px;
+	}
+	.dessert-item {
+		font-size: 18px;
+	}
+	.dessert-image {
+		width: 100%;
+		border-radius: 10px;
+	}
+	.image-button-container > button {
+		margin: -24px 0 0 0;
+		font-size: 18px;
+		padding: 10px 30px;
+	}
+	.right-column {
+		padding: 40px;
+		border-radius: 0px;
+	}
+	.cart-items-container {
+		display: flex;
+		flex-direction: column;
+	}
+	.cart-count-text {
+		font-size: 1.5rem;
+	}
+	.empty-cart-image {
+		width: 100px;
+		align-self: center;
+		margin: 0 0 20px 0;
+	}
+	.empty-cart-text {
+		font-size: 14px;
+		align-self: center;
+	}
+}
