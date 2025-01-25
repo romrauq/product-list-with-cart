@@ -65,13 +65,9 @@ fetch("../data/data.json")
 
 			add_to_cart_button.addEventListener("click", () => {
 				// Change button background color:
-				add_to_cart_button.style.backgroundColor = "hsl(14, 86%, 42%)";
-
-				// Hide the default button content
-				default_button.style.display = "none";
-
-				// Show the dynamic button content
-				dynamic_button.style.display = "flex";
+				add_to_cart_button.style.backgroundColor = "hsl(14, 86%, 42%)"; // Modify button background color.
+				default_button.style.display = "none"; // Hide the default button content.
+				dynamic_button.style.display = "flex"; // Show the dynamic button content.
 			});
 
 			// Event listener for increment icon
