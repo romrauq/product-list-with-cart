@@ -1,5 +1,6 @@
 // Define DOM element variables:
 let desserts_items_container = document.getElementById("dessert-items-container");
+let cart_items_container = document.getElementById("cart-items-container");
 let empty_cart_image = document.getElementById("empty-cart-image");
 let empty_cart_text = document.getElementById("empty-cart-text");
 
@@ -68,6 +69,28 @@ fetch("../data/data.json")
 				add_to_cart_button.style.backgroundColor = "hsl(14, 86%, 42%)"; // Modify button background color.
 				default_button.style.display = "none"; // Hide the default button content.
 				dynamic_button.style.display = "flex"; // Show the dynamic button content.
+
+				let selected_dessert_element = document.createElement("div");
+
+				selected_dessert_element.innerHTML = `
+				<div class="cart-item-row">
+						<div class="item-name-amount-price">
+							<p class="item-name">${data_item.name}</p>
+							<div class="item-prices-row">
+								<p class="item-number"><span class="number-output">${parseInt(
+									item_button_count.textContent
+								)}</span>x</p>
+								<p class="unit-amount">$<span class="unit-amount-output">${data_item.price}</span></p>
+								<p class="total-amount">$<span class="total-amount-output">${
+									data_item.price * parseInt(item_button_count.textContent)
+								}</span></p>
+							</div>
+						</div>
+						<img src="./resources/images/icon-remove-item.svg" alt="" class="remove-icon" />
+					</div>
+				`;
+
+				cart_items_container.appendChild(selected_dessert_element);
 			});
 
 			// Event listener for increment icon
@@ -86,6 +109,11 @@ fetch("../data/data.json")
 					item_button_count.textContent = current_count - 1;
 					console.log(item_button_count.textContent);
 				}
+				// else {
+				// 	dynamic_button.style.display = "none";
+				// 	default_button.style.display = "flex";
+				// 	add_to_cart_button.style.backgroundColor = "#F0F0F0"; // Reset the background color.
+				// }
 			});
 		}
 	})
