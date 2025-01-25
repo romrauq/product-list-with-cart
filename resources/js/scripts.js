@@ -59,6 +59,9 @@ fetch("../data/data.json")
 			const add_to_cart_button = dessert_item.querySelector(".add-to-cart-button");
 			const default_button = dessert_item.querySelector(".button-content-default");
 			const dynamic_button = dessert_item.querySelector(".button-content-dynamic");
+			const item_button_count = dessert_item.querySelector(".item-button-count");
+			const increment_icon = dessert_item.querySelector(".increment-icon");
+			const decrement_icon = dessert_item.querySelector(".decrement-icon");
 
 			add_to_cart_button.addEventListener("click", () => {
 				// Change button background color:
@@ -69,6 +72,22 @@ fetch("../data/data.json")
 
 				// Show the dynamic button content
 				dynamic_button.style.display = "flex";
+			});
+
+			// Event listener for increment icon
+			increment_icon.addEventListener("click", () => {
+				// Increase the count
+				let current_count = parseInt(item_button_count.textContent);
+				item_button_count.textContent = current_count + 1;
+			});
+
+			// Event listener for decrement icon
+			decrement_icon.addEventListener("click", () => {
+				// Decrease the count only if it's greater than 1
+				let current_count = parseInt(item_button_count.textContent);
+				if (current_count > 1) {
+					item_button_count.textContent = current_count - 1;
+				}
 			});
 		}
 	})
