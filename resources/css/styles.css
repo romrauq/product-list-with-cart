@@ -77,7 +77,7 @@ body {
 .image-button-container > button:hover {
 	color: var(--Red);
 }
-.add-to-cart-button {
+.add-to-cart-icon {
 	width: 14px;
 }
 .button-content-default {
@@ -90,7 +90,6 @@ body {
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	background-color: var(--Red);
 	display: none;
 }
 .count-icon {
