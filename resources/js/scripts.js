@@ -75,6 +75,7 @@ fetch("../data/data.json")
 				// Increase the count
 				let current_count = parseInt(item_button_count.textContent);
 				item_button_count.textContent = current_count + 1;
+				console.log(item_button_count.textContent);
 			});
 
 			// Event listener for decrement icon
@@ -83,6 +84,7 @@ fetch("../data/data.json")
 				let current_count = parseInt(item_button_count.textContent);
 				if (current_count > 1) {
 					item_button_count.textContent = current_count - 1;
+					console.log(item_button_count.textContent);
 				}
 			});
 		}
