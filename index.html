@@ -23,7 +23,7 @@
 
 			<div class="right-column">
 				<p class="cart-count-text">Your Cart (<span id="item-count-output"></span>)</p>
-				<div class="cart-items-container">
+				<div class="cart-items-container" id="cart-items-container">
 					<!-- `empty-cart-image` will have its display set to none upon user event: -->
 					<img
 						src="./resources/images/illustration-empty-cart.svg"
@@ -34,19 +34,7 @@
 
 					<!-- `empty-cart-text` will have its display set to none upon user event: -->
 					<p class="empty-cart-text" id="empty-cart-text">Your added items will appear here</p>
-
-					<!-- `cart-item-row` will only be displayed after a user event, it is simply a static element for styling purposes only. Will be removed later. -->
-					<div class="cart-item-row">
-						<div class="item-name-amount-price">
-							<p class="item-name">Classic Tiramisu</p>
-							<div class="item-prices-row">
-								<p class="item-number"><span class="number-output">1</span>x</p>
-								<p class="unit-amount">$<span class="unit-amount-output">5.50</span></p>
-								<p class="total-amount">$<span class="total-amount-output">5.50</span></p>
-							</div>
-						</div>
-						<img src="./resources/images/icon-remove-item.svg" alt="" class="remove-icon" />
-					</div>
+					<!-- cart item rows will be dynamically listed within this div -->
 				</div>
 			</div>
 		</main>
