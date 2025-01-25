@@ -1,8 +1,10 @@
 // Define DOM element variables:
-const desserts_items_container = document.getElementById("dessert-items-container");
-const add_to_cart_button = document.getElementById("add-to-cart-button");
-const empty_cart_image = document.getElementById("empty-cart-image");
-const empty_cart_text = document.getElementById("empty-cart-text");
+let desserts_items_container = document.getElementById("dessert-items-container");
+let add_to_cart_buttons = document.getElementsByClassName("add-to-cart-button");
+let default_button_array = document.getElementsByClassName("button-content-default");
+let dynamic_button_array = document.getElementsByClassName("button-content-dynamic");
+let empty_cart_image = document.getElementById("empty-cart-image");
+let empty_cart_text = document.getElementById("empty-cart-text");
 
 let dessert_data;
 
