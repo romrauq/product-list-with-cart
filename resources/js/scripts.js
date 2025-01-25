@@ -13,8 +13,6 @@ fetch("../data/data.json")
 	.then((response) => response.json())
 	.then((data) => {
 		// Use the imported data object
-		console.log(data.length);
-
 		for (let index = 0; index < data.length; index++) {
 			const data_item = data[index];
 
