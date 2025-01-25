@@ -61,12 +61,13 @@ body {
 }
 .image-button-container > button {
 	position: static;
-	margin: -18px 0 0 0;
+	font-weight: 600;
+	margin: -20px 0 0 0;
 	display: flex;
 	align-items: center;
-	gap: 5px;
-	width: fit-content;
-	padding: 8px 20px;
+	justify-content: center;
+	width: 135px;
+	padding: 10px 20px;
 	border-radius: 20px;
 	border: 1px solid var(--Rose-300);
 	outline: none;
@@ -78,6 +79,30 @@ body {
 }
 .add-to-cart-button {
 	width: 14px;
+}
+.button-content-default {
+	display: flex;
+	gap: 5px;
+	justify-content: space-between;
+}
+.button-content-dynamic {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	background-color: var(--Red);
+	display: none;
+}
+.count-icon {
+	border: 1px solid white;
+	padding: 2px;
+	border-radius: 50%;
+}
+.decrement-icon {
+	padding: 6px 2px;
+}
+.item-button-count {
+	color: white;
 }
 .dessert-type {
 	font-weight: 400;
