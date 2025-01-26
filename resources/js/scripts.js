@@ -53,10 +53,10 @@ fetch("../data/data.json")
           <p class="dessert-price">$${parseFloat(data_item.price).toFixed(2)}</p>
       `;
 
-			// Append the dessert item to the container
+			// Append the dessert item to the dessert items container:
 			desserts_items_container.appendChild(dessert_item);
 
-			// Add event listener to the "Add to Cart" button
+			// Assign elements within the dessert item into variables:
 			const add_to_cart_button = dessert_item.querySelector(".add-to-cart-button");
 			const default_button = dessert_item.querySelector(".button-content-default");
 			const dynamic_button = dessert_item.querySelector(".button-content-dynamic");
@@ -64,8 +64,8 @@ fetch("../data/data.json")
 			const increment_icon = dessert_item.querySelector(".increment-icon");
 			const decrement_icon = dessert_item.querySelector(".decrement-icon");
 
+			// Add event listener to the "Add to Cart" button
 			add_to_cart_button.addEventListener("click", () => {
-				// Change button background color:
 				add_to_cart_button.style.backgroundColor = "hsl(14, 86%, 42%)"; // Modify button background color.
 				default_button.style.display = "none"; // Hide the default button content.
 				dynamic_button.style.display = "flex"; // Show the dynamic button content.
@@ -103,8 +103,8 @@ fetch("../data/data.json")
 
 			// Event listener for decrement icon
 			decrement_icon.addEventListener("click", () => {
-				// Decrease the count only if it's greater than 1
 				let current_count = parseInt(item_button_count.textContent);
+				// Decrease the count only if it's greater than 1
 				if (current_count > 1) {
 					item_button_count.textContent = current_count - 1;
 					console.log(item_button_count.textContent);
