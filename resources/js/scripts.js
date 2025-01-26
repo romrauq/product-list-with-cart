@@ -39,7 +39,7 @@ fetch("../data/data.json")
                   alt=""
                   class="count-icon decrement-icon"
                 />
-                <span class="item-button-count">1</span>
+                <span class="item-button-count">0</span>
                 <img
                   src="./resources/images/icon-increment-quantity.svg"
                   alt=""
@@ -63,57 +63,62 @@ fetch("../data/data.json")
 			const item_button_count = dessert_item.querySelector(".item-button-count");
 			const increment_icon = dessert_item.querySelector(".increment-icon");
 			const decrement_icon = dessert_item.querySelector(".decrement-icon");
+			const item_count = dessert_item.querySelector("number-output");
+			const unit_amount = dessert_item.querySelector("unit-amount-output");
+			const total_amount = dessert_item.querySelector("total-amount-output");
+			const remove_item = dessert_item.querySelector("remove-icon");
 
-			// Add event listener to the "Add to Cart" button
-			add_to_cart_button.addEventListener("click", () => {
+			// Define the event handler function for the "Add to Cart" button
+			const addToCartHandler = () => {
 				add_to_cart_button.style.backgroundColor = "hsl(14, 86%, 42%)"; // Modify button background color.
 				default_button.style.display = "none"; // Hide the default button content.
 				dynamic_button.style.display = "flex"; // Show the dynamic button content.
 
+				// Create a new cart item element
 				let selected_dessert_element = document.createElement("div");
-
 				selected_dessert_element.innerHTML = `
-				<div class="cart-item-row">
-						<div class="item-name-amount-price">
-							<p class="item-name">${data_item.name}</p>
-							<div class="item-prices-row">
-								<p class="item-number"><span class="number-output">${parseInt(
-									item_button_count.textContent
-								)}</span>x</p>
-								<p class="unit-amount">$<span class="unit-amount-output">${data_item.price}</span></p>
-								<p class="total-amount">$<span class="total-amount-output">${
-									data_item.price * parseInt(item_button_count.textContent)
-								}</span></p>
-							</div>
-						</div>
-						<img src="./resources/images/icon-remove-item.svg" alt="" class="remove-icon" />
-					</div>
-				`;
-
+          <div class="cart-item-row">
+            <div class="item-name-amount-price">
+              <p class="item-name">${data_item.name}</p>
+              <div class="item-prices-row">
+                <p class="item-number"><span class="number-output"></span>x</p>
+                <p class="unit-amount">$<span class="unit-amount-output"></span></p>
+                <p class="total-amount">$<span class="total-amount-output"></span></p>
+              </div>
+            </div>
+            <img src="./resources/images/icon-remove-item.svg" alt="" class="remove-icon" />
+          </div>
+        `;
 				cart_items_container.appendChild(selected_dessert_element);
-			});
+
+				item_button_count.textContent = parseInt(item_button_count.textContent) + 1;
+
+				// Remove the event listener after a click
+				add_to_cart_button.removeEventListener("click", addToCartHandler);
+			};
+
+			// Attach the event listener to the "Add to Cart" button
+			add_to_cart_button.addEventListener("click", addToCartHandler);
 
 			// Event listener for increment icon
 			increment_icon.addEventListener("click", () => {
 				// Increase the count
-				let current_count = parseInt(item_button_count.textContent);
-				item_button_count.textContent = current_count + 1;
-				console.log(item_button_count.textContent);
+				item_button_count.textContent = parseInt(item_button_count.textContent) + 1;
+				item_count.textContent = parseInt(item_button_count.textContent);
 			});
 
 			// Event listener for decrement icon
 			decrement_icon.addEventListener("click", () => {
-				let current_count = parseInt(item_button_count.textContent);
-				// Decrease the count only if it's greater than 1
-				if (current_count > 1) {
-					item_button_count.textContent = current_count - 1;
-					console.log(item_button_count.textContent);
+				// Decrease the count only if it's greater than 0
+				if (parseInt(item_button_count.textContent) > 1) {
+					item_button_count.textContent = parseInt(item_button_count.textContent) - 1;
+					item_count.textContent = parseInt(item_button_count.textContent);
+				} else {
+					// Reset button styles and states
+					dynamic_button.style.display = "none";
+					default_button.style.display = "flex";
+					add_to_cart_button.style.backgroundColor = "#F0F0F0"; // Reset the background color.
 				}
-				// else {
-				// 	dynamic_button.style.display = "none";
-				// 	default_button.style.display = "flex";
-				// 	add_to_cart_button.style.backgroundColor = "#F0F0F0"; // Reset the background color.
-				// }
 			});
 		}
 	})
