@@ -89,6 +89,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	gap: 25px;
 	width: 100%;
 	display: none;
 }
@@ -217,8 +218,12 @@ body {
 	}
 	.image-button-container > button {
 		font-size: 16px;
+		/* width: 175px; */
 		margin: -27px 0 0 0;
 		padding: 15px 30px;
+	}
+	.button-content-dynamic {
+		gap: 30px;
 	}
 	.right-column {
 		padding: 40px;
