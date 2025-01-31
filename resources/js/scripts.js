@@ -4,19 +4,16 @@ let cart_items_container = document.getElementById("cart-items-container");
 let empty_cart_image = document.getElementById("empty-cart-image");
 let empty_cart_text = document.getElementById("empty-cart-text");
 
-let dessert_data;
-
 // Fetch data object from file:
 fetch("../data/data.json")
 	.then((response) => response.json())
 	.then((data) => {
-		// Use the imported data object
 		for (let index = 0; index < data.length; index++) {
 			const data_item = data[index];
 
 			// Create a new dessert item element
 			const dessert_item = document.createElement("div");
-			dessert_item.className = "dessert-item"; // Optional: Add a class for styling
+			dessert_item.className = "dessert-item";
 			dessert_item.innerHTML = `
           <div class="image-button-container">
             <img
@@ -39,7 +36,7 @@ fetch("../data/data.json")
                   alt=""
                   class="count-icon decrement-icon"
                 />
-                <span class="item-button-count">0</span>
+                <span class="item-button-count">1</span>
                 <img
                   src="./resources/images/icon-increment-quantity.svg"
                   alt=""
@@ -53,7 +50,7 @@ fetch("../data/data.json")
           <p class="dessert-price">$${parseFloat(data_item.price).toFixed(2)}</p>
       `;
 
-			// Append the dessert item to the dessert items container:
+			// Append the dessert item to the desserts container:
 			desserts_items_container.appendChild(dessert_item);
 
 			// Assign elements within the dessert item into variables:
@@ -63,35 +60,39 @@ fetch("../data/data.json")
 			const item_button_count = dessert_item.querySelector(".item-button-count");
 			const increment_icon = dessert_item.querySelector(".increment-icon");
 			const decrement_icon = dessert_item.querySelector(".decrement-icon");
-			const item_count = dessert_item.querySelector("number-output");
-			const unit_amount = dessert_item.querySelector("unit-amount-output");
-			const total_amount = dessert_item.querySelector("total-amount-output");
-			const remove_item = dessert_item.querySelector("remove-icon");
 
-			// Define the event handler function for the "Add to Cart" button
+			let cartItemElement = null; // Store reference to cart item
+
+			// Add to cart functionality
 			const addToCartHandler = () => {
-				add_to_cart_button.style.backgroundColor = "hsl(14, 86%, 42%)"; // Modify button background color.
-				default_button.style.display = "none"; // Hide the default button content.
-				dynamic_button.style.display = "flex"; // Show the dynamic button content.
+				add_to_cart_button.style.backgroundColor = "hsl(14, 86%, 42%)";
+				default_button.style.display = "none";
+				dynamic_button.style.display = "flex";
 
-				// Create a new cart item element
-				let selected_dessert_element = document.createElement("div");
-				selected_dessert_element.innerHTML = `
-          <div class="cart-item-row">
+				// Create a new cart item element if it doesn't exist
+				if (!cartItemElement) {
+					cartItemElement = document.createElement("div");
+					cartItemElement.className = "cart-item-row";
+					cartItemElement.innerHTML = `
             <div class="item-name-amount-price">
               <p class="item-name">${data_item.name}</p>
               <div class="item-prices-row">
-                <p class="item-number"><span class="number-output"></span>x</p>
-                <p class="unit-amount">$<span class="unit-amount-output"></span></p>
-                <p class="total-amount">$<span class="total-amount-output"></span></p>
+                <p class="item-number"><span class="number-output">1</span>x</p>
+                <p class="unit-amount">$<span class="unit-amount-output">${parseFloat(
+							data_item.price
+						).toFixed(2)}</span></p>
+                <p class="total-amount">$<span class="total-amount-output">${parseFloat(
+							data_item.price
+						).toFixed(2)}</span></p>
               </div>
             </div>
             <img src="./resources/images/icon-remove-item.svg" alt="" class="remove-icon" />
-          </div>
-        `;
-				cart_items_container.appendChild(selected_dessert_element);
+          `;
 
-				item_button_count.textContent = parseInt(item_button_count.textContent) + 1;
+					cart_items_container.appendChild(cartItemElement);
+				}
+
+				item_button_count.textContent = 1;
 
 				// Remove the event listener after a click
 				add_to_cart_button.removeEventListener("click", addToCartHandler);
@@ -102,22 +103,47 @@ fetch("../data/data.json")
 
 			// Event listener for increment icon
 			increment_icon.addEventListener("click", () => {
-				// Increase the count
-				item_button_count.textContent = parseInt(item_button_count.textContent) + 1;
-				item_count.textContent = parseInt(item_button_count.textContent);
+				if (cartItemElement) {
+					const number_output = cartItemElement.querySelector(".number-output");
+					const total_amount_output = cartItemElement.querySelector(".total-amount-output");
+					const unit_price = parseFloat(
+						cartItemElement.querySelector(".unit-amount-output").textContent
+					);
+
+					// Increase the count
+					let count = parseInt(number_output.textContent) + 1;
+					number_output.textContent = count;
+					item_button_count.textContent = count;
+
+					// Update total price
+					total_amount_output.textContent = (unit_price * count).toFixed(2);
+				}
 			});
 
 			// Event listener for decrement icon
 			decrement_icon.addEventListener("click", () => {
-				// Decrease the count only if it's greater than 0
-				if (parseInt(item_button_count.textContent) > 1) {
-					item_button_count.textContent = parseInt(item_button_count.textContent) - 1;
-					item_count.textContent = parseInt(item_button_count.textContent);
-				} else {
-					// Reset button styles and states
-					dynamic_button.style.display = "none";
-					default_button.style.display = "flex";
-					add_to_cart_button.style.backgroundColor = "#F0F0F0"; // Reset the background color.
+				if (cartItemElement) {
+					const number_output = cartItemElement.querySelector(".number-output");
+					const total_amount_output = cartItemElement.querySelector(".total-amount-output");
+					const unit_price = parseFloat(
+						cartItemElement.querySelector(".unit-amount-output").textContent
+					);
+
+					// Decrease the count
+					let count = parseInt(number_output.textContent);
+					if (count > 1) {
+						count -= 1;
+						number_output.textContent = count;
+						item_button_count.textContent = count;
+						total_amount_output.textContent = (unit_price * count).toFixed(2);
+					} else {
+						// Remove from cart if count reaches 0
+						cart_items_container.removeChild(cartItemElement);
+						cartItemElement = null; // Reset reference
+						dynamic_button.style.display = "none";
+						default_button.style.display = "flex";
+						add_to_cart_button.style.backgroundColor = "#F0F0F0";
+					}
 				}
 			});
 		}
