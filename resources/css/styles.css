@@ -66,9 +66,9 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 135px;
+	width: fit-content;
 	padding: 10px 20px;
-	border-radius: 20px;
+	border-radius: 30px;
 	border: 1px solid var(--Rose-300);
 	outline: none;
 	cursor: pointer;
@@ -216,9 +216,9 @@ body {
 		border-radius: 10px;
 	}
 	.image-button-container > button {
-		margin: -24px 0 0 0;
-		font-size: 18px;
-		padding: 10px 30px;
+		font-size: 16px;
+		margin: -27px 0 0 0;
+		padding: 15px 30px;
 	}
 	.right-column {
 		padding: 40px;
