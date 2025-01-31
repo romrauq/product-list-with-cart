@@ -185,6 +185,11 @@ body {
 .attribution a {
 	color: hsl(228, 45%, 44%);
 }
+@media (max-width: 800px) {
+	.items-container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
 @media (max-width: 475px) {
 	.main-container {
 		font-size: 16px;
