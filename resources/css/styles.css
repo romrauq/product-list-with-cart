@@ -37,7 +37,7 @@ body {
 	width: fit-content;
 }
 .heading-container {
-	padding: 10px 0 15px 0;
+	margin: 10px 0 15px 0;
 }
 .items-container {
 	display: grid;
