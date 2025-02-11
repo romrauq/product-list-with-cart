@@ -36,7 +36,7 @@ body {
 	width: 100%;
 	z-index: 5;
 	background-color: rgba(0, 0, 0, 0.4);
-	/* display: none; */
+	display: none;
 }
 .modal-container {
 	display: flex;
