@@ -4,6 +4,36 @@ let cart_items_container = document.getElementById("cart-items-container");
 let empty_cart_image = document.getElementById("empty-cart-image");
 let empty_cart_text = document.getElementById("empty-cart-text");
 
+let confirmOrderButton = null; // Store reference to the confirm order button
+
+// Function to update the confirm order button visibility
+function updateConfirmOrderButton() {
+	const cartItems = cart_items_container.querySelectorAll(".cart-item-row");
+	if (cartItems.length > 0) {
+		if (!confirmOrderButton) {
+			confirmOrderButton = document.createElement("button");
+			confirmOrderButton.textContent = "Confirm Order";
+			confirmOrderButton.className = "confirm-order-button";
+			confirmOrderButton.style.display = "block";
+			confirmOrderButton.style.marginTop = "20px";
+			confirmOrderButton.style.padding = "10px 20px";
+			confirmOrderButton.style.backgroundColor = "hsl(14, 86%, 42%)";
+			confirmOrderButton.style.color = "white";
+			confirmOrderButton.style.border = "none";
+			confirmOrderButton.style.cursor = "pointer";
+			cart_items_container.appendChild(confirmOrderButton);
+		} else {
+			cart_items_container.removeChild(confirmOrderButton); // Removes previous instance of the confirm button at the end of cart items.
+			cart_items_container.appendChild(confirmOrderButton); // Appends a new instance of the confirm button at the end of cart items.
+		}
+	} else {
+		if (confirmOrderButton) {
+			confirmOrderButton.remove();
+			confirmOrderButton = null;
+		}
+	}
+}
+
 // Fetch data object from file:
 fetch("../data/data.json")
 	.then((response) => response.json())
@@ -15,40 +45,25 @@ fetch("../data/data.json")
 			const dessert_item = document.createElement("div");
 			dessert_item.className = "dessert-item";
 			dessert_item.innerHTML = `
-          <div class="image-button-container">
-            <img
-              src="${data_item["image"]["desktop"]}"
-              alt=""
-              class="dessert-image"
-              id="dessert-image"
-            />
-            <button class="add-to-cart-button">
-              <div class="button-content-default">
-                <img
-                  src="./resources/images/icon-add-to-cart.svg"
-                  alt=""
-                  class="add-to-cart-icon"
-                />Add to Cart
-              </div>
-              <div class="button-content-dynamic" style="display: none;">
-                <img
-                  src="./resources/images/icon-decrement-quantity.svg"
-                  alt=""
-                  class="count-icon decrement-icon"
-                />
-                <span class="item-button-count">1</span>
-                <img
-                  src="./resources/images/icon-increment-quantity.svg"
-                  alt=""
-                  class="count-icon increment-icon"
-                />
-              </div>
-            </button>
-          </div>
-          <p class="dessert-type">${data_item.category}</p>
-          <p class="dessert-specific">${data_item.name}</p>
-          <p class="dessert-price">$${parseFloat(data_item.price).toFixed(2)}</p>
-      `;
+              <div class="image-button-container">
+                  <img src="${data_item["image"]["desktop"]}" alt="" class="dessert-image" />
+                    <button class="add-to-cart-button">
+                      <div class="button-content-default">
+												<img src="./resources/images/icon-add-to-cart.svg" alt="" class="add-to-cart-icon" />
+													Add to Cart
+                      </div>
+
+											<div class="button-content-dynamic" style="display: none;">
+												<img src="./resources/images/icon-decrement-quantity.svg" alt="" class="count-icon decrement-icon" />
+												<span class="item-button-count">1</span>
+												<img src="./resources/images/icon-increment-quantity.svg" alt="" class="count-icon increment-icon" />
+											</div>
+                    </button>
+              	</div>
+								<p class="dessert-type">${data_item.category}</p>
+								<p class="dessert-specific">${data_item.name}</p>
+								<p class="dessert-price">$${parseFloat(data_item.price).toFixed(2)}</p>
+            `;
 
 			// Append the dessert item to the desserts container:
 			desserts_items_container.appendChild(dessert_item);
@@ -74,22 +89,23 @@ fetch("../data/data.json")
 					cartItemElement = document.createElement("div");
 					cartItemElement.className = "cart-item-row";
 					cartItemElement.innerHTML = `
-            <div class="item-name-amount-price">
-              <p class="item-name">${data_item.name}</p>
-              <div class="item-prices-row">
-                <p class="item-number"><span class="number-output">1</span>x</p>
-                <p class="unit-amount">$<span class="unit-amount-output">${parseFloat(
-							data_item.price
-						).toFixed(2)}</span></p>
-                <p class="total-amount">$<span class="total-amount-output">${parseFloat(
-							data_item.price
-						).toFixed(2)}</span></p>
-              </div>
-            </div>
-            <img src="./resources/images/icon-remove-item.svg" alt="" class="remove-icon" />
-          `;
+                        <div class="item-name-amount-price">
+                            <p class="item-name">${data_item.name}</p>
+                            <div class="item-prices-row">
+                                <p class="item-number"><span class="number-output">1</span>x</p>
+                                <p class="unit-amount">$<span class="unit-amount-output">${parseFloat(
+												data_item.price
+											).toFixed(2)}</span></p>
+                                <p class="total-amount">$<span class="total-amount-output">${parseFloat(
+												data_item.price
+											).toFixed(2)}</span></p>
+                            </div>
+                        </div>
+                        <img src="./resources/images/icon-remove-item.svg" alt="" class="remove-icon" />
+                    `;
 
 					cart_items_container.appendChild(cartItemElement);
+					updateConfirmOrderButton(); // Check if confirm order button should be added
 				}
 
 				item_button_count.textContent = 1;
@@ -143,6 +159,7 @@ fetch("../data/data.json")
 						dynamic_button.style.display = "none";
 						default_button.style.display = "flex";
 						add_to_cart_button.style.backgroundColor = "#F0F0F0";
+						updateConfirmOrderButton(); // Check if confirm order button should be removed
 					}
 				}
 			});
