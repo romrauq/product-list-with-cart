@@ -20,6 +20,7 @@ function updateConfirmOrderButton() {
 			confirmOrderButton.style.backgroundColor = "hsl(14, 86%, 42%)";
 			confirmOrderButton.style.color = "white";
 			confirmOrderButton.style.border = "none";
+			confirmOrderButton.style.borderRadius = "20px";
 			confirmOrderButton.style.cursor = "pointer";
 			cart_items_container.appendChild(confirmOrderButton);
 		} else {
